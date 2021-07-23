@@ -3,6 +3,7 @@ package com.example.shop.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -16,7 +17,7 @@ public class Price {
     private int id;
 
     @Column(name = "cost")
-    private double cost;
+    private BigDecimal cost;
 
     @Column(name = "dateP")
     private Date date;
