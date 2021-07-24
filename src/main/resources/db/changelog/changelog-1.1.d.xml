@@ -1,0 +1,21 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="rvv" id="load data to users table">
+        <loadData catalogName="cat"
+                  commentLineStartsWith="//"
+                  encoding="UTF-8"
+                  file="./../data/1_1/users.csv"
+                  quotchar="'"
+                  relativeToChangelogFile="true"
+                  schemaName=""
+                  separator=","
+                  tableName="users"
+                  usePreparedStatements="true">
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

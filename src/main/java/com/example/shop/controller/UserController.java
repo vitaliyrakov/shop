@@ -1,6 +1,6 @@
 package com.example.shop.controller;
 
-import com.example.shop.service.CustomerService;
+import com.example.shop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,23 +11,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.security.RolesAllowed;
 
 @Controller
-@RequestMapping("/customers")
+@RequestMapping("/users")
 @RequiredArgsConstructor
-public class CustomerController {
+public class UserController {
 
-    private final CustomerService customerService;
+    private final UserService userService;
 
     @GetMapping()
     @RolesAllowed({"ADMIN", "MANAGER"})
-    public String showCustomers(Model model) {
-        model.addAttribute("customers", customerService.findAll());
-        return "customers/showAll";
+    public String showUsers(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "users/showAll";
     }
 
     @GetMapping("/{id}")
-    public String showCustomer(@PathVariable("id") int id, Model model) {
-        model.addAttribute("customer", customerService.findById(id));
-        return "customers/show";
+    public String showUser(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userService.findById(id));
+        return "users/show";
     }
 
 }
