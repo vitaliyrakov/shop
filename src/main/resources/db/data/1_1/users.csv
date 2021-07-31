@@ -1,0 +1,4 @@
+login,password,email,first_name,last_name,reg_date
+user1,pass1,'john@mail.vm',John,Doe,2020-01-08
+user2,pass2,'ivan@mail.vm',Ivan,Ivanov,2020-01-08
+user3,pass3,'kate@mail.vm',Kate,Smith,2020-01-08

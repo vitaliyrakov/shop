@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
+
 @Controller
 @RequestMapping("/products")
 @RequiredArgsConstructor
@@ -27,12 +29,14 @@ public class ProductController {
     }
 
     @PostMapping()
+    @RolesAllowed({"ADMIN", "MANAGER"})
     public String create(@ModelAttribute("product") Product product) {
         productService.save(product);
         return "products/showAll";
     }
 
     @PostMapping("/{id}")
+    @RolesAllowed({"ADMIN", "MANAGER"})
     public String deleteProduct(@PathVariable("id") int id) {
         productService.delete(id);
         return "products/showAll";
