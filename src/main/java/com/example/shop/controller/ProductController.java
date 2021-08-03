@@ -1,7 +1,7 @@
 package com.example.shop.controller;
 
 import com.example.shop.model.entity.Product;
-import com.example.shop.service.ProductService;
+import com.example.shop.model.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,26 +19,31 @@ public class ProductController {
     @GetMapping()
     public String showProducts(Model model) {
         model.addAttribute("products", productService.findAll());
-        return "products/showAll";
+        return "showProducts";
     }
 
     @GetMapping("/{id}")
     public String showProduct(@PathVariable("id") int id, Model model) {
         model.addAttribute("product", productService.findById(id));
-        return "products/show";
+        return "showProduct";
+    }
+
+    @GetMapping("/new")
+    public String addProduct(@ModelAttribute("product") Product product) {
+        return "newProduct";
     }
 
     @PostMapping()
     @RolesAllowed({"ADMIN", "MANAGER"})
     public String create(@ModelAttribute("product") Product product) {
         productService.save(product);
-        return "products/showAll";
+        return "redirect:/products";
     }
 
     @PostMapping("/{id}")
     @RolesAllowed({"ADMIN", "MANAGER"})
-    public String deleteProduct(@PathVariable("id") int id) {
+    public String delete(@PathVariable("id") int id) {
         productService.delete(id);
-        return "products/showAll";
+        return "redirect:/products";
     }
 }

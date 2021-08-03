@@ -11,5 +11,11 @@
     Цена: <span th:text="${product.getPrice()}">Cost</span><br>
 </p>
 
+<div>
+    <a th:href="@{/products/new}">
+        <button type="button">Добавить в корзину</button>
+    </a>
+</div>
+
 </body>
 </html>

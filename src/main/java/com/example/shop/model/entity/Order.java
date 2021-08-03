@@ -19,8 +19,8 @@ public class Order {
     private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+</head>
+
+<body>
+<table>
+    <thead>
+    <tr>
+        <th> Id</th>
+        <th> Имя пользователя</th>
+        <th> Дата регистрации</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+        <td><span th:text="${user.getId()}">Id</span><br></td>
+        <td><span th:text="${user.getFirstName()}">Имя</span><br></td>
+        <td><span th:text="${user.getRegDate()}">Имя</span><br></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

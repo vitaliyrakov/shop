@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+</head>
+
+<body>
+<h2>Пользователи</h2>
+<table>
+    <thead>
+    <tr>
+        <th> Имя</th>
+        <th> Email</th>
+        <th> Дата регистрации</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${users.isEmpty()}">
+        <td colspan="2"> Нет данных по пользователям</td>
+    </tr>
+
+    <tr th:each="user : ${users}">
+        <td><a th:href="@{/users/{id}(id = ${user.getId()})}"
+               th:text="${user.getFirstName()}+' '+${user.getLastName()}">users</a></td>
+        <td><a th:href="@{/users/{id}(id = ${user.getId()})}" th:text="${user.getEmail()}">users</a></td>
+        <td><a th:href="@{/users/{id}(id = ${user.getId()})}" th:text="${user.getRegDate()}">users</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

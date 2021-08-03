@@ -3,6 +3,7 @@ package com.example.shop.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class Product {
     private String title;
 
     @JoinColumn(name = "price")
-    private double price;
+    private BigDecimal price;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
@@ -32,9 +33,9 @@ public class Product {
 
     public String getCustomers() {
         return orders.stream()
-                .map(o -> o.getCustomer())
+                .map(o -> o.getUser())
                 .distinct()
-                .map(c -> c.getName())
+                .map(c -> c.getFirstName())
                 .sorted()
                 .collect(Collectors.joining(", "));
     }

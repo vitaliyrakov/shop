@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="../../static/style.css"/>
+    <meta charset="UTF-8">
+    <title>Заказы</title>
+</head>
+
+<body>
+<h2>Заказы</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th> Наименование</th>
+        <th> Цена </th>
+        <th>        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${orders.isEmpty()}">
+        <td colspan="2"> Нет заказов</td>
+    </tr>
+    <tr th:each="order : ${orders}">
+        <td><a th:href="@{/orders/{id}(id = ${order.getId()})}" th:text="${order.getUser()}">order</a></td>
+<!--        <td><span th:text="${#numbers.formatDecimal(order.getPrice(), 0, 'COMMA', 2, 'POINT')}"> cost </span> </td>-->
+        <td>
+            <form th:method="delete" th:action="@{/orders/{id}(id=${order.getId()})}">
+                <input type="submit" value="Delete">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <a th:href="@{/orders/new}">
+        <button type="button">Создать заказ</button>
+    </a>
+</div>
+
+</body>
+</html>

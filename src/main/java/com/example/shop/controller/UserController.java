@@ -1,6 +1,6 @@
 package com.example.shop.controller;
 
-import com.example.shop.service.UserService;
+import com.example.shop.model.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,13 +21,13 @@ public class UserController {
     @RolesAllowed({"ADMIN", "MANAGER"})
     public String showUsers(Model model) {
         model.addAttribute("users", userService.findAll());
-        return "users/showAll";
+        return "showUsers";
     }
 
     @GetMapping("/{id}")
     public String showUser(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.findById(id));
-        return "users/show";
+        return "showUser";
     }
 
 }

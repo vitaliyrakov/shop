@@ -45,6 +45,9 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Order> orders;
+
 //    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @JoinTable(
 //            name = "users_roles",

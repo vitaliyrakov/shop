@@ -17,6 +17,7 @@
             </column>
 
             <column name="title" type="varchar(50)"/>
+            <column name="price" type="number"/>
         </createTable>
 
         <rollback>
@@ -39,6 +40,11 @@
             <column name="date" type="date">
                 <constraints nullable="false"/>
             </column>
+
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
         </createTable>
 
         <rollback>
