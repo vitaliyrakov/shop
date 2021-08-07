@@ -26,8 +26,21 @@
                th:text="${user.getFirstName()}+' '+${user.getLastName()}">users</a></td>
         <td><a th:href="@{/users/{id}(id = ${user.getId()})}" th:text="${user.getEmail()}">users</a></td>
         <td><a th:href="@{/users/{id}(id = ${user.getId()})}" th:text="${user.getRegDate()}">users</a></td>
+        <td>
+            <form th:method="delete" th:action="@{/users/{id}(id=${user.getId()})}">
+                <input type="submit" value="Delete">
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
+
+<div>
+    <a th:href="@{/users/new}">
+        <button type="button">Добавить пользователя</button>
+    </a>
+</div>
+
+
 </body>
 </html>

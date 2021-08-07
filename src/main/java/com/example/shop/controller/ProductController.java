@@ -34,14 +34,14 @@ public class ProductController {
     }
 
     @PostMapping()
-    @RolesAllowed({"ADMIN", "MANAGER"})
+    @RolesAllowed({"ADMIN"})
     public String create(@ModelAttribute("product") Product product) {
         productService.save(product);
         return "redirect:/products";
     }
 
     @PostMapping("/{id}")
-    @RolesAllowed({"ADMIN", "MANAGER"})
+    @RolesAllowed({"ADMIN"})
     public String delete(@PathVariable("id") int id) {
         productService.delete(id);
         return "redirect:/products";

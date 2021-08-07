@@ -10,8 +10,11 @@
     <thead>
     <tr>
         <th> Id</th>
-        <th> Имя пользователя</th>
-        <th> Дата регистрации</th>
+        <th> Фамилия</th>
+        <th> Имя</th>
+        <th> Логин</th>
+        <th> Пароль</th>
+        <th> Email</th>
     </tr>
     </thead>
     <tbody>
@@ -19,7 +22,10 @@
     <tr>
         <td><span th:text="${user.getId()}">Id</span><br></td>
         <td><span th:text="${user.getFirstName()}">Имя</span><br></td>
-        <td><span th:text="${user.getRegDate()}">Имя</span><br></td>
+        <td><span th:text="${user.getLastName()}">Имя</span><br></td>
+        <td><span th:text="${user.getLogin()}">Имя</span><br></td>
+        <td><span th:text="${user.getPassword()}">Имя</span><br></td>
+        <td><span th:text="${user.getEmail()}">Имя</span><br></td>
     </tr>
     </tbody>
 </table>
