@@ -32,4 +32,32 @@
         </loadData>
     </changeSet>
 
+    <changeSet author="rvv" id="load data to roles table">
+        <loadData catalogName="cat"
+                  commentLineStartsWith="//"
+                  encoding="UTF-8"
+                  file="./../data/1_2/roles.csv"
+                  quotchar="'"
+                  relativeToChangelogFile="true"
+                  schemaName=""
+                  separator=","
+                  tableName="roles"
+                  usePreparedStatements="true">
+        </loadData>
+    </changeSet>
+
+    <changeSet author="rvv" id="load data to users_roles table">
+        <loadData catalogName="cat"
+                  commentLineStartsWith="//"
+                  encoding="UTF-8"
+                  file="./../data/1_2/users_roles.csv"
+                  quotchar="'"
+                  relativeToChangelogFile="true"
+                  schemaName=""
+                  separator=","
+                  tableName="users_roles"
+                  usePreparedStatements="true">
+        </loadData>
+    </changeSet>
+
 </databaseChangeLog>

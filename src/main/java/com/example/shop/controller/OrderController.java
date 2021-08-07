@@ -34,7 +34,7 @@ public class OrderController {
     @RolesAllowed({"ADMIN", "MANAGER"})
     public String create(@ModelAttribute("order") Order order) {
         order.setDate(new Date());
-        order.setUser(new User());
+//        order.setUser(new User());
         orderService.save(order);
         return "redirect:/orders";
     }

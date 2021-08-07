@@ -39,21 +39,18 @@ public class User {
     @Column(name = "comments")
     private String comments;
 
-//    @Column(name = "phone_number")
-//    private String phoneNumber;
-
     @Column(name = "email")
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Order> orders;
 
-//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "users_roles",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id"),
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
 //            foreignKey = @ForeignKey(name = "fk_orders_products_orders")
-//    )
-//    private List<Role> roles;
+    )
+    private List<Role> roles;
 }

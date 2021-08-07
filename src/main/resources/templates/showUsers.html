@@ -12,7 +12,9 @@
     <thead>
     <tr>
         <th> Имя</th>
+        <th> Логин</th>
         <th> Email</th>
+        <th> Роль</th>
         <th> Дата регистрации</th>
     </tr>
     </thead>
@@ -24,7 +26,9 @@
     <tr th:each="user : ${users}">
         <td><a th:href="@{/users/{id}(id = ${user.getId()})}"
                th:text="${user.getFirstName()}+' '+${user.getLastName()}">users</a></td>
+        <td><a th:href="@{/users/{id}(id = ${user.getId()})}" th:text="${user.getLogin()}">users</a></td>
         <td><a th:href="@{/users/{id}(id = ${user.getId()})}" th:text="${user.getEmail()}">users</a></td>
+        <td><a th:href="@{/users/{id}(id = ${user.getId()})}" th:text="${user.getRoles()}">users</a></td>
         <td><a th:href="@{/users/{id}(id = ${user.getId()})}" th:text="${user.getRegDate()}">users</a></td>
         <td>
             <form th:method="delete" th:action="@{/users/{id}(id=${user.getId()})}">
@@ -41,6 +45,11 @@
     </a>
 </div>
 
+<div>
+    <a th:href="@{/logout}">
+        <button type="button">logout</button>
+    </a>
+</div>
 
 </body>
 </html>
