@@ -17,6 +17,7 @@
             </column>
 
             <column name="title" type="varchar(50)"/>
+            <column name="price" type="number"/>
         </createTable>
 
         <rollback>
@@ -39,6 +40,11 @@
             <column name="date" type="date">
                 <constraints nullable="false"/>
             </column>
+
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
         </createTable>
 
         <rollback>
@@ -172,17 +178,17 @@
             </column>
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="users_roles"
-                                 baseColumnNames="user_id"
-                                 constraintName="fk_users_roles_users"
-                                 referencedTableName="customers"
-                                 referencedColumnNames="id"/>
+<!--        <addForeignKeyConstraint baseTableName="users_roles"-->
+<!--                                 baseColumnNames="user_id"-->
+<!--                                 constraintName="fk_users_roles_users"-->
+<!--                                 referencedTableName="customers"-->
+<!--                                 referencedColumnNames="id"/>-->
 
-        <addForeignKeyConstraint baseTableName="users_roles"
-                                 baseColumnNames="role_id"
-                                 constraintName="fk_users_roles_roles"
-                                 referencedTableName="roles"
-                                 referencedColumnNames="id"/>
+<!--        <addForeignKeyConstraint baseTableName="users_roles"-->
+<!--                                 baseColumnNames="role_id"-->
+<!--                                 constraintName="fk_users_roles_roles"-->
+<!--                                 referencedTableName="roles"-->
+<!--                                 referencedColumnNames="id"/>-->
 
         <rollback>
             <dropTable tableName="users_roles"/>

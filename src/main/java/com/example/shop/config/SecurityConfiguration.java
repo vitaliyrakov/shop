@@ -1,5 +1,7 @@
 package com.example.shop.config;
 
+import com.example.shop.model.service.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -26,15 +30,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic().disable()
                 .authorizeRequests()
-                .antMatchers("/example/**").hasAnyRole("ADMIN")
+                .antMatchers("/users/**").hasAnyRole("ADMIN")
+                .antMatchers("/cart/**").authenticated()
+                .antMatchers("/orders/**").authenticated()
                 .anyRequest().permitAll();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder())
-                .withUser("Test").password(passwordEncoder().encode("123456789")).roles("ADMIN", "MANAGER");
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//                auth.inMemoryAuthentication()
+//                .passwordEncoder(passwordEncoder())
+//                .withUser("Test").password(passwordEncoder().encode("123")).roles("ADMIN");
     }
 
     @Bean

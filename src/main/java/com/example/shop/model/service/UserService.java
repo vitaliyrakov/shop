@@ -1,4 +1,4 @@
-package com.example.shop.service;
+package com.example.shop.model.service;
 
 import com.example.shop.model.entity.User;
 
@@ -13,4 +13,6 @@ public interface UserService {
     void save(User user);
 
     void delete(int id);
+
+//    User findByLogin(String userName);
 }

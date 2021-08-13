@@ -1,0 +1,63 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="rvv" id="load data to products table">
+        <loadData catalogName="cat"
+                  commentLineStartsWith="//"
+                  encoding="UTF-8"
+                  file="./../data/1_2/products.csv"
+                  quotchar="'"
+                  relativeToChangelogFile="true"
+                  schemaName=""
+                  separator=","
+                  tableName="products"
+                  usePreparedStatements="true">
+        </loadData>
+    </changeSet>
+
+    <changeSet author="rvv" id="load data to orders table">
+        <loadData catalogName="cat"
+                  commentLineStartsWith="//"
+                  encoding="UTF-8"
+                  file="./../data/1_2/orders.csv"
+                  quotchar="'"
+                  relativeToChangelogFile="true"
+                  schemaName=""
+                  separator=","
+                  tableName="orders"
+                  usePreparedStatements="true">
+        </loadData>
+    </changeSet>
+
+    <changeSet author="rvv" id="load data to roles table">
+        <loadData catalogName="cat"
+                  commentLineStartsWith="//"
+                  encoding="UTF-8"
+                  file="./../data/1_2/roles.csv"
+                  quotchar="'"
+                  relativeToChangelogFile="true"
+                  schemaName=""
+                  separator=","
+                  tableName="roles"
+                  usePreparedStatements="true">
+        </loadData>
+    </changeSet>
+
+    <changeSet author="rvv" id="load data to users_roles table">
+        <loadData catalogName="cat"
+                  commentLineStartsWith="//"
+                  encoding="UTF-8"
+                  file="./../data/1_2/users_roles.csv"
+                  quotchar="'"
+                  relativeToChangelogFile="true"
+                  schemaName=""
+                  separator=","
+                  tableName="users_roles"
+                  usePreparedStatements="true">
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

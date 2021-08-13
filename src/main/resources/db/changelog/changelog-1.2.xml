@@ -1,0 +1,56 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create orders_products table" author="rvv">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="orders_products"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="orders_products">
+            <column name="id" autoIncrement="true" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="product_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="order_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+<!--            <column name="price_id" type="int">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+        </createTable>
+
+<!--        <addForeignKeyConstraint baseTableName="orders_products"-->
+<!--                                 baseColumnNames="product_id"-->
+<!--                                 constraintName="fk_orders_products_products"-->
+<!--                                 referencedTableName="products"-->
+<!--                                 referencedColumnNames="id"/>-->
+
+<!--        <addForeignKeyConstraint baseTableName="orders_products"-->
+<!--                                 baseColumnNames="order_id"-->
+<!--                                 constraintName="fk_orders_products_orders"-->
+<!--                                 referencedTableName="orders"-->
+<!--                                 referencedColumnNames="id"/>-->
+
+<!--        <addForeignKeyConstraint baseTableName="orders_products"-->
+<!--                                 baseColumnNames="price_id"-->
+<!--                                 constraintName="fk_orders_products_prices"-->
+<!--                                 referencedTableName="prices"-->
+<!--                                 referencedColumnNames="id"/>-->
+
+        <rollback>
+            <dropTable tableName="orders_products"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
