@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>Товары</title>
 </head>
+
 <body>
+<!--<h2>Корзина</h2>-->
 <p>
     Id: <span th:text="${product.getId()}">Id</span><br>
     Наименование: <span th:text="${product.getTitle()}">Name</span><br>
@@ -12,7 +14,7 @@
 </p>
 
 <div>
-    <a th:href="@{/products/new}">
+    <a th:href="@{/cart/new}">
         <button type="button">Добавить в корзину</button>
     </a>
 </div>

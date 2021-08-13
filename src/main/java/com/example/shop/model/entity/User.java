@@ -42,6 +42,10 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @OneToOne
+    @JoinColumn(name = "id", referencedColumnName = "user_id")
+    private Cart cart;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Order> orders;
 

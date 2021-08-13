@@ -2,18 +2,56 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Товары</title>
+    <title>Корзина</title>
 </head>
 <body>
-<p>
-    Id: <span th:text="${product.getId()}">Id</span><br>
-    Наименование: <span th:text="${product.getTitle()}">Name</span><br>
-    Цена: <span th:text="${product.getPrice()}">Cost</span><br>
-</p>
+
+<h2>Корзина</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th> Наименование</th>
+        <th> Цена </th>
+        <th>        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${carts.isEmpty()}">
+        <td colspan="2"> Корзина пуста</td>
+    </tr>
+    <tr th:each="cart : ${carts}">
+        <td><a th:href="@{/cart/{id}(id = ${cart.getUser_id()})}" th:text="${cart.getUser_id()}">cart</a></td>
+<!--        <td><span th:text="${#numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"> cost </span> </td>-->
+<!--        <td>-->
+<!--            <div sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--                <form th:method="delete" th:action="@{/products/{id}(id=${product.getId()})}">-->
+<!--                    <input type="submit" value="Delete">-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <div sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--                &lt;!&ndash;                <form th:method="editProduct" th:action="@{/products/{id}/edit(id=${product.getId()})}">&ndash;&gt;-->
+<!--                <a href="/edit?id=${product.getId()}">Edit</a>-->
+<!--                &lt;!&ndash;                <form th:method="editProduct" th:action="@{/products/edit}">&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <input type="submit" value="Edit">&ndash;&gt;-->
+<!--                &lt;!&ndash;                </form>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </td>-->
+
+<!--        <td>-->
+<!--            <form th:method="delete" th:action="@{/products/{id}(id=${product.getId()})}">-->
+<!--                <input type="submit" value="Добавить в корзину">-->
+<!--            </form>-->
+<!--        </td>-->
+    </tr>
+    </tbody>
+</table>
 
 <div>
-    <a th:href="@{/products/new}">
-        <button type="button">Добавить в корзину</button>
+    <a th:href="@{/orders/new}">
+        <button type="button">Оформить заказ</button>
     </a>
 </div>
 

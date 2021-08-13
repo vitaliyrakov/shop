@@ -2,6 +2,7 @@ package com.example.shop.model.service;
 
 import com.example.shop.model.entity.User;
 import com.example.shop.model.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,8 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-    @Autowired
+
     private UserRepository userRepository;
 
     @Override
