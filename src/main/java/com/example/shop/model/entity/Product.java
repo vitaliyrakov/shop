@@ -31,6 +31,14 @@ public class Product {
     )
     List<Order> orders;
 
+    @ManyToMany
+    @JoinTable(
+            name = "carts_products",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "cart_id")
+    )
+    private List<Cart> carts;
+
     public String getCustomers() {
         return orders.stream()
                 .map(o -> o.getUser())

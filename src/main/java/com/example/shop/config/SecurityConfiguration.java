@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -27,10 +28,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .cors().disable()
                 .formLogin()
+                .usernameParameter("/login")
+                .defaultSuccessUrl("/products")
+//                .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
                 .and()
                 .httpBasic().disable()
                 .authorizeRequests()
-                .antMatchers("/users/**").hasAnyRole("ADMIN")
+//                .antMatchers("/users/**").hasAnyRole("ADMIN")
+                .antMatchers("/users/**").authenticated()
                 .antMatchers("/cart/**").authenticated()
                 .antMatchers("/orders/**").authenticated()
                 .anyRequest().permitAll();
@@ -39,9 +44,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//                auth.inMemoryAuthentication()
-//                .passwordEncoder(passwordEncoder())
-//                .withUser("Test").password(passwordEncoder().encode("123")).roles("ADMIN");
     }
 
     @Bean
