@@ -13,28 +13,48 @@
 
 <body>
 
-<div sec:authorize="isAnonymous()">
-    <a th:href="@{/login}">
-        <button type="button">Войти</button>
-    </a>
-</div>
-<div sec:authorize="isAuthenticated()">
-    Здравствуйте, <span sec:authentication="name">Bob</span> !
-<!--    (Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>)-->
-</div>
-<div sec:authorize="isAuthenticated()">
-    <a th:href="@{/logout}">
-        <button type="button">Выйти</button>
-    </a>
-</div>
+<table>
+    <thead>
+    <tr>
+        <th>
+            <div sec:authorize="isAuthenticated()">
+                Здравствуйте, <span sec:authentication="name">Bob</span> !
+            </div>
+        </th>
+        <th>
+            <a th:href="@{/cart}">
+                <button type="button">Корзина</button>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/orders}">
+                <button type="button">Заказы</button>
+            </a>
+        </th>
+        <th>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">
+                    <button type="button">Войти</button>
+                </a>
+            </div>
+
+            <div sec:authorize="isAuthenticated()">
+                <a th:href="@{/logout}">
+                    <button type="button">Выйти</button>
+                </a>
+            </div>
+        </th>
+    </tr>
+    </thead>
+</table>
 
 <h2>Товары</h2>
 <table>
     <thead>
     <tr>
         <th> Наименование</th>
-        <th> Цена </th>
-        <th>        </th>
+        <th> Цена</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -43,23 +63,17 @@
     </tr>
     <tr th:each="product : ${products}">
         <td><a th:href="@{/products/{id}(id = ${product.getId()})}" th:text="${product.getTitle()}">product</a></td>
-        <td><span th:text="${#numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"> cost </span> </td>
-        <td>
-            <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <td><span th:text="${#numbers.formatDecimal(product.getPrice(), 0, 'COMMA', 2, 'POINT')}"> cost </span></td>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <td>
+                <a th:href="@{/products/edit/{id}(id = ${product.getId()})}">Edit</a>
+            </td>
+            <td>
                 <form th:method="delete" th:action="@{/products/{id}(id=${product.getId()})}">
                     <input type="submit" value="Delete">
                 </form>
-            </div>
-        </td>
-        <td>
-            <div sec:authorize="hasRole('ROLE_ADMIN')">
-<!--                <form th:method="editProduct" th:action="@{/products/{id}/edit(id=${product.getId()})}">-->
-                <a href="/edit?id=${product.getId()}">Edit</a>
-                <!--                <form th:method="editProduct" th:action="@{/products/edit}">-->
-<!--                    <input type="submit" value="Edit">-->
-<!--                </form>-->
-            </div>
-        </td>
+            </td>
+        </div>
 
         <td>
             <form th:method="add" th:action="@{/cart/{id}(id=${product.getId()})}">

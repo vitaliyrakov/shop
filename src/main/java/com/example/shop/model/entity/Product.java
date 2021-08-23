@@ -14,16 +14,16 @@ import java.util.stream.Collectors;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+//    @Column(name = "id")
     private int id;
 
-    @Column(name = "title")
+//    @Column(name = "title")
     private String title;
 
-    @JoinColumn(name = "price")
+//    @JoinColumn(name = "price")
     private BigDecimal price;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "orders_products",
             joinColumns = @JoinColumn(name = "product_id"),
@@ -31,7 +31,7 @@ public class Product {
     )
     List<Order> orders;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "carts_products",
             joinColumns = @JoinColumn(name = "product_id"),

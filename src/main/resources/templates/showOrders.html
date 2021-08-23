@@ -10,35 +10,24 @@
 <body>
 <h2>Заказы</h2>
 
-<table>
+<div th:if="${orders.isEmpty()}">
+    <td colspan="2"> Нет заказов</td>
+</div>
+
+<table th:if="${not orders.isEmpty()}">
     <thead>
     <tr>
-        <th> Наименование</th>
-        <th> Цена </th>
-        <th>        </th>
+        <th> №</th>
+        <th> Дата</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:if="${orders.isEmpty()}">
-        <td colspan="2"> Нет заказов</td>
-    </tr>
     <tr th:each="order : ${orders}">
-        <td><a th:href="@{/orders/{id}(id = ${order.getId()})}" th:text="${order.getUser()}">order</a></td>
-<!--        <td><span th:text="${#numbers.formatDecimal(order.getPrice(), 0, 'COMMA', 2, 'POINT')}"> cost </span> </td>-->
-        <td>
-            <form th:method="delete" th:action="@{/orders/{id}(id=${order.getId()})}">
-                <input type="submit" value="Delete">
-            </form>
-        </td>
+        <td><a th:href="@{/orders/{id}(id = ${order.getId()})}" th:text="${order.getId()}">order</a></td>
+        <td><a th:text="${order.getDate()}">date</a></td>
     </tr>
     </tbody>
 </table>
-
-<div>
-    <a th:href="@{/orders/new}">
-        <button type="button">Создать заказ</button>
-    </a>
-</div>
 
 </body>
 </html>

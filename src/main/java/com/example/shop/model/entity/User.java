@@ -1,6 +1,8 @@
 package com.example.shop.model.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,46 +17,46 @@ public class User {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "login")
+//    @Column(name = "login")
     private String login;
 
-    @Column(name = "password")
+//    @Column(name = "password")
     private String password;
 
-    @Column(name = "first_name")
+//    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name")
+//    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "reg_date")
+//    @Column(name = "reg_date")
     private Date regDate;
 
-    @Column(name = "is_blocked")
+//    @Column(name = "is_blocked")
     private boolean isBlocked;
 
-    @Column(name = "address")
+//    @Column(name = "address")
     private String address;
 
-    @Column(name = "comments")
+//    @Column(name = "comments")
     private String comments;
 
-    @Column(name = "email")
+//    @Column(name = "email")
     private String email;
 
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "user_id")
-    private Cart cart;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Order> orders;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
-//            foreignKey = @ForeignKey(name = "fk_orders_products_orders")
     )
     private List<Role> roles;
+
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
+
+    // зачем, если и без этого работает???
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+
 }

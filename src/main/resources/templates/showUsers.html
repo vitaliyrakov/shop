@@ -7,19 +7,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Пользователи</title>
-
-    <!--    <div sec:authorize="hasAuthority('USER')" > Has Authority USER </div>-->
-    <div>
-        <sec:authorize access="isAuthenticated()">
-            Добрый день,
-            <sec:authentication property="principal.username"/>
-            !
-        </sec:authorize>
-    </div>
-
 </head>
 
 <body>
+
+<div sec:authorize="isAnonymous()">
+    <a th:href="@{/login}">
+        <button type="button">Войти</button>
+    </a>
+</div>
+<div sec:authorize="isAuthenticated()">
+    Здравствуйте, <span sec:authentication="name">Bob</span> !
+
+    <a th:href="@{/logout}">
+        <button type="button">Выйти</button>
+    </a>
+</div>
+
 <h2>Пользователи</h2>
 <table>
     <thead>
@@ -43,11 +47,16 @@
         <td><a th:href="@{/users/{id}(id = ${user.getId()})}" th:text="${user.getEmail()}">users</a></td>
         <td><a th:href="@{/users/{id}(id = ${user.getId()})}" th:text="${user.getRoles()}">users</a></td>
         <td><a th:href="@{/users/{id}(id = ${user.getId()})}" th:text="${user.getRegDate()}">users</a></td>
-        <td>
-            <form th:method="delete" th:action="@{/users/{id}(id=${user.getId()})}">
-                <input type="submit" value="Delete">
-            </form>
-        </td>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <td>
+                <a th:href="@{/users/edit/{id}(id = ${user.getId()})}">Edit</a>
+            </td>
+            <td>
+                <form th:method="delete" th:action="@{/users/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </div>
     </tr>
     </tbody>
 </table>
@@ -55,12 +64,6 @@
 <div>
     <a th:href="@{/users/new}">
         <button type="button">Добавить пользователя</button>
-    </a>
-</div>
-
-<div>
-    <a th:href="@{/logout}">
-        <button type="button">logout</button>
     </a>
 </div>
 

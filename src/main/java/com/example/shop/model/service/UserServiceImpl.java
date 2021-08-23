@@ -4,6 +4,8 @@ import com.example.shop.model.entity.User;
 import com.example.shop.model.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,5 +37,19 @@ public class UserServiceImpl implements UserService {
     public void delete(int id) {
         userRepository.deleteById(id);
     }
+
+//    @Override
+//    public User getCurrentUser() {
+//
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        String username = principal instanceof UserDetails
+//                ? ((UserDetails) principal).getUsername()
+//                : principal.toString();
+//
+//        return userRepository.findUserByUsername(username)
+//                .orElseThrow(NullPointerException::new);
+//    }
+
 
 }

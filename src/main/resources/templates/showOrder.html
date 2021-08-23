@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Заказ</title>
+</head>
+<body>
+
+<h2>Заказ №
+    <a th:text="${order.getId()}">order</a>
+</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th> Наименование</th>
+        <th> Цена</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="product : ${order.products}">
+        <td><a th:text="${product.getTitle()}">product</a></td>
+        <td><a th:text="${product.getPrice()}">price</a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
