@@ -1,14 +1,11 @@
 package com.example.shop.model.service;
 
 import com.example.shop.model.entity.Cart;
-import com.example.shop.model.entity.Product;
 import com.example.shop.model.entity.User;
 import com.example.shop.model.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,46 +15,34 @@ public class CartServiceImpl implements CartService {
     private final UserService userService;
 
     @Override
-    public List<Cart> findAll() {
-        return cartRepository.findAll();
-    }
-
-    @Override
-//    @Transactional(readOnly = true)
-    public Cart findById(int id) {
-//        return cartRepository.findById(id).stream().peek(it -> Hibernate.initialize(it.getProducts())).findFirst().orElse(null);
-        return cartRepository.getById(id);
-    }
-
-    @Override
+    @Transactional
     public Cart getCart() {
         return cartRepository.getById(getCartId());
     }
 
     @Override
+    @Transactional
     public void save(Cart cart) {
         cartRepository.save(cart);
     }
-//
-//    @Override
-//    public void delete(int id) {
-//        productRepository.deleteById(id);
-//    }
+
+    @Override
+    public void clearCart() {
+        cartRepository.deleteById(getCartId());
+    }
 
     private int getCartId() {
+        User currentUser = userService.getCurrentUser();
 
-//        User currentUser = userService.getCurrentUser();
-//
-//        Cart cart = currentUser.getCart();
-//
-//        if (cart == null) {
-////            cart = cartRepository.save(
-////                    Cart.builder()
-////                            .id(currentUser.getId())
-////                            .build());
-//        }
-//        return cart.getId();
-        return 1;
+        Cart cart = currentUser.getCart();
+
+        if (cart == null) {
+            cart = cartRepository.save(
+                    Cart.builder()
+                            .user(currentUser)
+                            .build());
+        }
+        return cart.getId();
     }
 
 }
