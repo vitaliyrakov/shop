@@ -6,13 +6,14 @@
 </head>
 <body>
 
-<form method="post" th:action="@{/products/edit}" th:object="${product}">
+<form method="post" th:action="@{/products}" th:object="${product}">
     <p>
-        <label for="name">Наименование:</label><br>
-        <input type="text" size="40" id="name" th:field="*{title}"/>
-        <br>
-        <label for="cost">Цена:</label><br>
-        <input type="text" size="40" id="cost" th:field="*{price}"/>
+        <label for="id">Id:</label>
+        <input type="text" size="10" readonly id="id" th:field="*{id}"/><br>
+        <label for="name">Наименование:</label>
+        <input type="text" size="40" id="name" th:field="*{title}"/><br>
+        <label for="cost">Цена:</label>
+        <input type="text" size="10" id="cost" th:field="*{price}"/>
     </p>
     <p>
         <input type="submit" value="Save">

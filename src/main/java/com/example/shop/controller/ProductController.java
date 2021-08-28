@@ -12,65 +12,43 @@ import javax.annotation.security.RolesAllowed;
 @Controller
 @RequestMapping("/products")
 @RequiredArgsConstructor
+@RolesAllowed("ADMIN")
 public class ProductController {
 
     private final ProductService productService;
 
     @GetMapping()
+//    @RolesAllowed({"ADMIN", "USER"})
     public String showProducts(Model model) {
         model.addAttribute("products", productService.findAll());
         return "showProducts";
     }
 
     @GetMapping("/{id}")
+//    @RolesAllowed({"ADMIN", "USER"})
     public String showProduct(@PathVariable("id") int id, Model model) {
         model.addAttribute("product", productService.findById(id));
         return "showProduct";
     }
 
-//    @GetMapping("/{id}/edit")
-//    @RolesAllowed("ADMIN")
-//    public String editProduct(@PathVariable("id") int id, Model model) {
-//        model.addAttribute("product", productService.findById(id));
-//        return "editProduct";
-//    }
-
-    @RequestMapping("/edit")
-    @RolesAllowed("ADMIN")
-    public String editProduct(@RequestParam int id, Model model) {
-        model.addAttribute("product", productService.findById(1));
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("product", productService.findById(id));
         return "editProduct";
     }
 
-    @PostMapping("/edit")
-    @RolesAllowed("ADMIN")
-    public String editProduct(@ModelAttribute("product") Product product) {
-        productService.save(product);
-        return "redirect:/products";
-    }
-
-//    @PostMapping(value = "/{id}/edit")
-//    @RolesAllowed("ADMIN")
-//    public String updateProduct(@RequestBody Product product, @PathVariable("id") int id) {
-//        productService.save(product);
-//        return "redirect:/products";
-//    }
-
     @GetMapping("/new")
-    @RolesAllowed("ADMIN")
-    public String addProduct(@ModelAttribute("product") Product product) {
+    public String create(@ModelAttribute("product") Product product) {
         return "newProduct";
     }
 
     @PostMapping()
-    @RolesAllowed("ADMIN")
-    public String create(@ModelAttribute("product") Product product) {
+    public String save(@ModelAttribute("product") Product product) {
         productService.save(product);
         return "redirect:/products";
     }
 
     @PostMapping("/{id}")
-    @RolesAllowed("ADMIN")
     public String delete(@PathVariable("id") int id) {
         productService.delete(id);
         return "redirect:/products";

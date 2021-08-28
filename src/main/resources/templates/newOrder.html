@@ -6,16 +6,33 @@
 </head>
 <body>
 
+<h2>Заказ</h2>
+
 <form method="post" th:action="@{/orders}" th:object="${order}">
-<!--    <p>-->
-<!--        <label for="name">Наименование:</label><br>-->
-<!--        <input type="text" size="40" id="name" th:field="*{title}"/>-->
-<!--        <br>-->
-<!--        <label for="cost">Цена:</label><br>-->
-<!--        <input type="text" size="40" id="cost" th:field="*{price}"/>-->
-<!--    </p>-->
+
+    <table th:if="${not order.products.isEmpty()}">
+        <thead>
+        <tr>
+            <th> Наименование</th>
+            <th> Цена</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="product : ${order.products}">
+            <td><a th:text="${product.getTitle()}">product</a></td>
+            <td><a th:text="${product.getPrice()}">price</a></td>
+            <td>
+                <form th:method="delete" th:action="@{/order/del/{id}(id=${product.getId()})}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
     <p>
-        <input type="submit" value="Add">
+        <input type="submit" value="Создать заказ">
     </p>
 </form>
 </body>
