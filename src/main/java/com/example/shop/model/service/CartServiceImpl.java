@@ -45,9 +45,8 @@ public class CartServiceImpl implements CartService {
 //    }
 
     private int getCartId() {
-
 //        User currentUser = userService.getCurrentUser();
-//
+
 //        Cart cart = currentUser.getCart();
 //
 //        if (cart == null) {
