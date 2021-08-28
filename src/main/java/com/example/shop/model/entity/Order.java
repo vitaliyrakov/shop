@@ -22,7 +22,7 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "orders_products",
             joinColumns = @JoinColumn(name = "order_id"),

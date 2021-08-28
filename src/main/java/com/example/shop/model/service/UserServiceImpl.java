@@ -3,6 +3,7 @@ package com.example.shop.model.service;
 import com.example.shop.model.entity.User;
 import com.example.shop.model.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public User findById(int id) {
-        return userRepository.getById(id);
+        return userRepository.findById(id).stream().peek(it -> Hibernate.initialize(it.getId() )).findFirst().orElse(null);
     }
 
     @Override
@@ -37,17 +38,18 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-    @Override
-    public User getCurrentUser() {
+//    @Override
+//    public User getCurrentUser() {
+//
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        String username = principal instanceof UserDetails
+//                ? ((UserDetails) principal).getUsername()
+//                : principal.toString();
+//
+//        return userRepository.findUserByUsername(username)
+//                .orElseThrow(NullPointerException::new);
+//    }
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        String username = principal instanceof UserDetails
-                ? ((UserDetails) principal).getUsername()
-                : principal.toString();
-
-        return userRepository.findOneByLogin(username)
-                .orElseThrow(NullPointerException::new);
-    }
 
 }

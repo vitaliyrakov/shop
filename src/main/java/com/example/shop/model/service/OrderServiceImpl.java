@@ -27,13 +27,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional
     public void save(Order order) {
         orderRepository.save(order);
     }
 
     @Override
-    @Transactional
     public void delete(int id) {
         orderRepository.deleteById(id);
     }

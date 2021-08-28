@@ -12,7 +12,7 @@ import javax.annotation.security.RolesAllowed;
 @Controller
 @RequestMapping("/products")
 @RequiredArgsConstructor
-//@RolesAllowed("ADMIN")
+@RolesAllowed("ADMIN")
 public class ProductController {
 
     private final ProductService productService;
@@ -39,7 +39,7 @@ public class ProductController {
 
     @GetMapping("/new")
     public String create(@ModelAttribute("product") Product product) {
-        return "editProduct";
+        return "newProduct";
     }
 
     @PostMapping()

@@ -21,9 +21,12 @@
         <label for="email">Почта:</label>
         <input type="text" size="40" id="email" th:field="*{email}"/>
     </p>
-    <p>
-        <input type="submit" value="Сохранить">
-    </p>
+<!--    <p th:if="${user.id}">-->
+<!--        <input type="submit" value="Добавить">-->
+<!--    </p>-->
+    <!--    <p th:if="${user.id}">-->
+    <input type="submit" value="Сохранить">
+    <!--    </p>-->
 </form>
 </body>
 </html>
