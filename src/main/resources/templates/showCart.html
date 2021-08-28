@@ -21,29 +21,23 @@
     </thead>
 
     <tbody>
-
     <tr th:each="product : ${cart.products}">
         <td><a th:text="${product.getTitle()}">product</a></td>
         <td><a th:text="${product.getPrice()}">price</a></td>
 
         <td>
             <form th:method="delete" th:action="@{/cart/del/{id}(id=${product.getId()})}">
-                <input type="submit" value="Delete">
+                <input type="submit" value="Удалить">
             </form>
         </td>
     </tr>
     </tbody>
-
 </table>
 
 <div th:if="${not cart.products.isEmpty()}">
-<!--    <a th:href="@{/orders/new/{id}(id=${cart.getId()})}">-->
-<!--        <button type="button">Оформить заказ</button>-->
-<!--    </a>-->
     <form method="post" th:action="@{/orders}">
         <input type="submit" value="Оформить заказ">
     </form>
-
 </div>
 
 </body>

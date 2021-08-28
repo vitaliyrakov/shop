@@ -5,25 +5,23 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "products")
 @Data
-//@Builder
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id")
+    @Column(name = "id")
     private int id;
 
-//    @Column(name = "title")
+    @Column(name = "title")
     private String title;
 
-//    @JoinColumn(name = "price")
+    @JoinColumn(name = "price")
     private BigDecimal price;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "orders_products",
             joinColumns = @JoinColumn(name = "product_id"),
@@ -31,7 +29,7 @@ public class Product {
     )
     List<Order> orders;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "carts_products",
             joinColumns = @JoinColumn(name = "product_id"),
@@ -39,13 +37,7 @@ public class Product {
     )
     private List<Cart> carts;
 
-    public String getCustomers() {
-        return orders.stream()
-                .map(o -> o.getUser())
-                .distinct()
-                .map(c -> c.getFirstName())
-                .sorted()
-                .collect(Collectors.joining(", "));
-    }
+    // TODO: 25.08.2021 добавить категории
+    //   categories
 
 }
