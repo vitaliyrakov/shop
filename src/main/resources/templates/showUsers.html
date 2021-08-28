@@ -61,7 +61,7 @@
     </tbody>
 </table>
 
-<div>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
     <a th:href="@{/users/new}">
         <button type="button">Добавить пользователя</button>
     </a>

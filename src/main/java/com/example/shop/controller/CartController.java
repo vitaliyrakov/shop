@@ -1,9 +1,7 @@
 package com.example.shop.controller;
 
 import com.example.shop.model.entity.Cart;
-import com.example.shop.model.entity.Order;
 import com.example.shop.model.entity.Product;
-import com.example.shop.model.entity.User;
 import com.example.shop.model.service.CartService;
 import com.example.shop.model.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -25,11 +23,6 @@ public class CartController {
     public String showCart(Model model) {
         model.addAttribute("cart", cartService.getCart());
         return "showCart";
-    }
-
-    @GetMapping("/new")
-    public String createOrder(@ModelAttribute("order") Order order) {
-        return "newOrder";
     }
 
     @PostMapping("/{id}")
