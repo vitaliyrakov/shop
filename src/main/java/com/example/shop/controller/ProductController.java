@@ -39,7 +39,7 @@ public class ProductController {
 
     @GetMapping("/new")
     public String create(@ModelAttribute("product") Product product) {
-        return "editProduct";
+        return "newProduct";
     }
 
     @PostMapping()

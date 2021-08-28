@@ -1,9 +1,8 @@
 package com.example.shop.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,19 +10,17 @@ import java.util.List;
 @Entity
 @Table(name = "carts")
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+//    @Column(name = "id")
     private int id;
 
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Fetch(FetchMode.SELECT)
     @ManyToMany
     @JoinTable(
             name = "carts_products",
