@@ -12,45 +12,47 @@ import javax.annotation.security.RolesAllowed;
 @Controller
 @RequestMapping("/products")
 @RequiredArgsConstructor
-@RolesAllowed("ADMIN")
 public class ProductController {
 
     private final ProductService productService;
 
     @GetMapping()
-//    @RolesAllowed({"ADMIN", "USER"})
     public String showProducts(Model model) {
         model.addAttribute("products", productService.findAll());
         return "showProducts";
     }
 
     @GetMapping("/{id}")
-//    @RolesAllowed({"ADMIN", "USER"})
     public String showProduct(@PathVariable("id") int id, Model model) {
         model.addAttribute("product", productService.findById(id));
         return "showProduct";
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") int id, Model model) {
+    @RolesAllowed({"ADMIN"})
+    public String editProduct(@PathVariable("id") int id, Model model) {
         model.addAttribute("product", productService.findById(id));
         return "editProduct";
     }
 
     @GetMapping("/new")
-    public String create(@ModelAttribute("product") Product product) {
+    @RolesAllowed({"ADMIN"})
+    public String createProduct(@ModelAttribute("product") Product product) {
         return "editProduct";
     }
 
     @PostMapping()
-    public String save(@ModelAttribute("product") Product product) {
+    @RolesAllowed({"ADMIN"})
+    public String saveProduct(@ModelAttribute("product") Product product) {
         productService.save(product);
         return "redirect:/products";
     }
 
     @PostMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
+    @RolesAllowed({"ADMIN"})
+    public String deleteProduct(@PathVariable("id") int id) {
         productService.delete(id);
         return "redirect:/products";
     }
+
 }

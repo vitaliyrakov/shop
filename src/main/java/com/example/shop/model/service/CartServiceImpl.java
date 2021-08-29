@@ -31,16 +31,19 @@ public class CartServiceImpl implements CartService {
         cartRepository.deleteById(getCartId());
     }
 
+    @Transactional
     private int getCartId() {
         User currentUser = userService.getCurrentUser();
 
         Cart cart = currentUser.getCart();
 
         if (cart == null) {
+            // TODO: 28.08.2021 отладить эту ветку
             cart = cartRepository.save(
                     Cart.builder()
                             .user(currentUser)
                             .build());
+
         }
         return cart.getId();
     }

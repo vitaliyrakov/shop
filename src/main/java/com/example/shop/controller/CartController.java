@@ -27,6 +27,7 @@ public class CartController {
 
     @PostMapping("/{id}")
     public String addProduct(@PathVariable("id") int id) {
+        // TODO: 28.08.2021 перенести код на уровень сервиса и рефактор
         Cart cart = cartService.getCart();
         List<Product> products = cart.getProducts();
         products.add(productService.findById(id));
@@ -37,6 +38,7 @@ public class CartController {
 
     @PostMapping("/del/{id}")
     public String delProduct(@PathVariable("id") int id) {
+        // TODO: 28.08.2021 перенести код на уровень сервиса и рефактор
         Cart cart = cartService.getCart();
         List<Product> products = cart.getProducts();
         products.remove(productService.findById(id));

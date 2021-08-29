@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/orders")
 @RequiredArgsConstructor
+@RolesAllowed({"ADMIN", "USER"})
 public class OrderController {
 
     private final OrderService orderService;
@@ -27,6 +29,7 @@ public class OrderController {
 
     @GetMapping()
     public String showOrders(Model model) {
+        // TODO: 28.08.2021 нужно выводить лишь заказы текущего пользователя 
         model.addAttribute("orders", orderService.findAll());
         return "showOrders";
     }
@@ -47,11 +50,11 @@ public class OrderController {
                 .map(id -> productService.findById(id))
                 .collect(Collectors.toList());
 
-        Order order = new Order();
-        order.setProducts(products);
-        order.setDate(new Date());
-        order.setUser(userService.getCurrentUser());
-        orderService.save(order);
+        orderService.save(Order.builder()
+                .products(products)
+                .date(new Date())
+                .user(userService.getCurrentUser())
+                .build());
 
         cartService.clearCart();
 

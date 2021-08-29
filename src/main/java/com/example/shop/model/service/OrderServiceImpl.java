@@ -21,9 +21,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Order findById(int id) {
-        return orderRepository.findById(id).stream().peek(it -> Hibernate.initialize(it.getId() )).findFirst().orElse(null);
+        return orderRepository.getById(id);
     }
 
     @Override
