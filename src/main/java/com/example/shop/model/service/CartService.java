@@ -10,4 +10,8 @@ public interface CartService {
 
     void clearCart();
 
+    void addProduct(int Id);
+
+    void delProduct(int Id);
+
 }

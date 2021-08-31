@@ -1,20 +1,12 @@
 package com.example.shop.controller;
 
-import com.example.shop.model.entity.Order;
-import com.example.shop.model.entity.Product;
-import com.example.shop.model.service.CartService;
 import com.example.shop.model.service.OrderService;
-import com.example.shop.model.service.ProductService;
-import com.example.shop.model.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/orders")
@@ -23,9 +15,6 @@ import java.util.stream.Collectors;
 public class OrderController {
 
     private final OrderService orderService;
-    private final UserService userService;
-    private final CartService cartService;
-    private final ProductService productService;
 
     @GetMapping()
     public String showOrders(Model model) {
@@ -42,22 +31,7 @@ public class OrderController {
 
     @PostMapping()
     public String createOrder() {
-        List<Integer> productIds = cartService.getCart().getProducts().stream()
-                .map(Product::getId)
-                .collect(Collectors.toList());
-
-        List<Product> products = productIds.stream()
-                .map(id -> productService.findById(id))
-                .collect(Collectors.toList());
-
-        orderService.save(Order.builder()
-                .products(products)
-                .date(new Date())
-                .user(userService.getCurrentUser())
-                .build());
-
-        cartService.clearCart();
-
+        orderService.createOrder();
         return "redirect:/orders";
     }
 
