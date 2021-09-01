@@ -18,7 +18,6 @@ public class OrderController {
 
     @GetMapping()
     public String showOrders(Model model) {
-        // TODO: 28.08.2021 нужно выводить лишь заказы текущего пользователя 
         model.addAttribute("orders", orderService.findAll());
         return "showOrders";
     }

@@ -54,16 +54,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Transactional
-    private int getCartId() {
+    public int getCartId() {
         User currentUser = userService.getCurrentUser();
 
         Cart cart = currentUser.getCart();
 
         if (cart == null) {
-            // TODO: 28.08.2021 отладить эту ветку
             cart = cartRepository.save(
                     Cart.builder()
                             .user(currentUser)
+                            .id(currentUser.getId())
                             .build());
 
         }
