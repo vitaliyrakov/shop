@@ -37,7 +37,4 @@ public class Product {
     )
     private List<Cart> carts;
 
-    // TODO: 25.08.2021 добавить категории
-    //   categories
-
 }

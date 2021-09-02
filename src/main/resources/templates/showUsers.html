@@ -11,18 +11,50 @@
 
 <body>
 
-<div sec:authorize="isAnonymous()">
-    <a th:href="@{/login}">
-        <button type="button">Войти</button>
-    </a>
-</div>
-<div sec:authorize="isAuthenticated()">
-    Здравствуйте, <span sec:authentication="name">Bob</span> !
+<table>
+    <thead>
+    <tr>
+        <th>
+            <div sec:authorize="isAuthenticated()">
+                Здравствуйте, <span sec:authentication="name">Bob</span> !
+            </div>
+        </th>
 
-    <a th:href="@{/logout}">
-        <button type="button">Выйти</button>
-    </a>
-</div>
+        <th>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">
+                    <button type="button">Войти</button>
+                </a>
+            </div>
+
+            <div sec:authorize="isAuthenticated()">
+                <a th:href="@{/logout}">
+                    <button type="button">Выйти</button>
+                </a>
+            </div>
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <a th:href="@{/cart}">
+                <button type="button">Корзина</button>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/products}">
+                <button type="button">Товары</button>
+            </a>
+        </th>
+        <th>
+            <div sec:authorize="isAuthenticated()">
+                <a th:href="@{/orders}">
+                    <button type="button">Заказы</button>
+                </a>
+            </div>
+        </th>
+    </tr>
+    </thead>
+</table>
 
 <h2>Пользователи</h2>
 <table>

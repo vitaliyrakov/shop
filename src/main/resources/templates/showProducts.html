@@ -21,16 +21,7 @@
                 Здравствуйте, <span sec:authentication="name">Bob</span> !
             </div>
         </th>
-        <th>
-            <a th:href="@{/cart}">
-                <button type="button">Корзина</button>
-            </a>
-        </th>
-        <th>
-            <a th:href="@{/orders}">
-                <button type="button">Заказы</button>
-            </a>
-        </th>
+
         <th>
             <div sec:authorize="isAnonymous()">
                 <a th:href="@{/login}">
@@ -45,6 +36,25 @@
             </div>
         </th>
     </tr>
+    <tr>
+        <th>
+            <a th:href="@{/cart}">
+                <button type="button">Корзина</button>
+            </a>
+        </th>
+        <th sec:authorize="hasRole('ROLE_ADMIN')">
+            <a th:href="@{/users}">
+                <button type="button">Пользователи</button>
+            </a>
+        </th>
+        <th>
+            <div sec:authorize="isAuthenticated()">
+                <a th:href="@{/orders}">
+                    <button type="button">Заказы</button>
+                </a>
+            </div>
+        </th>
+    </tr>
     </thead>
 </table>
 
@@ -54,7 +64,6 @@
     <tr>
         <th> Наименование</th>
         <th> Цена</th>
-        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -80,7 +89,6 @@
                 <input type="submit" value="Добавить в корзину">
             </form>
         </td>
-
     </tr>
     </tbody>
 </table>
