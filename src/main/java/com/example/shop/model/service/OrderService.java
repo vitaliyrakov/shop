@@ -13,4 +13,6 @@ public interface OrderService {
     void save(Order product);
 
     void delete(int id);
+
+    void createOrder();
 }

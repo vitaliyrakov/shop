@@ -5,8 +5,8 @@ import com.example.shop.model.entity.Product;
 import com.example.shop.model.entity.User;
 import com.example.shop.model.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,48 +16,58 @@ public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
     private final UserService userService;
+    private final ProductService productService;
 
     @Override
-    public List<Cart> findAll() {
-        return cartRepository.findAll();
-    }
-
-    @Override
-//    @Transactional(readOnly = true)
-    public Cart findById(int id) {
-//        return cartRepository.findById(id).stream().peek(it -> Hibernate.initialize(it.getProducts())).findFirst().orElse(null);
-        return cartRepository.getById(id);
-    }
-
-    @Override
+    @Transactional
     public Cart getCart() {
         return cartRepository.getById(getCartId());
     }
 
     @Override
+    @Transactional
     public void save(Cart cart) {
         cartRepository.save(cart);
     }
-//
-//    @Override
-//    public void delete(int id) {
-//        productRepository.deleteById(id);
-//    }
 
-    private int getCartId() {
+    @Override
+    public void clearCart() {
+        cartRepository.deleteById(getCartId());
+    }
 
-//        User currentUser = userService.getCurrentUser();
-//
-//        Cart cart = currentUser.getCart();
-//
-//        if (cart == null) {
-////            cart = cartRepository.save(
-////                    Cart.builder()
-////                            .id(currentUser.getId())
-////                            .build());
-//        }
-//        return cart.getId();
-        return 1;
+    @Override
+    public void addProduct(int id) {
+        Cart cart = getCart();
+        List<Product> products = cart.getProducts();
+        products.add(productService.findById(id));
+        cart.setProducts(products);
+        save(cart);
+    }
+
+    @Override
+    public void delProduct(int id) {
+        Cart cart = getCart();
+        List<Product> products = cart.getProducts();
+        products.remove(productService.findById(id));
+        cart.setProducts(products);
+        save(cart);
+    }
+
+    @Transactional
+    public int getCartId() {
+        User currentUser = userService.getCurrentUser();
+
+        Cart cart = currentUser.getCart();
+
+        if (cart == null) {
+            cart = cartRepository.save(
+                    Cart.builder()
+                            .user(currentUser)
+                            .id(currentUser.getId())
+                            .build());
+
+        }
+        return cart.getId();
     }
 
 }

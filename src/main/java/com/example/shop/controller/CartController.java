@@ -1,17 +1,10 @@
 package com.example.shop.controller;
 
-import com.example.shop.model.entity.Cart;
-import com.example.shop.model.entity.Order;
-import com.example.shop.model.entity.Product;
-import com.example.shop.model.entity.User;
 import com.example.shop.model.service.CartService;
-import com.example.shop.model.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/cart")
@@ -19,7 +12,6 @@ import java.util.List;
 public class CartController {
 
     private final CartService cartService;
-    private final ProductService productService;
 
     @GetMapping()
     public String showCart(Model model) {
@@ -27,28 +19,15 @@ public class CartController {
         return "showCart";
     }
 
-    @GetMapping("/new")
-    public String createOrder(@ModelAttribute("order") Order order) {
-        return "newOrder";
-    }
-
     @PostMapping("/{id}")
     public String addProduct(@PathVariable("id") int id) {
-        Cart cart = cartService.getCart();
-        List<Product> products = cart.getProducts();
-        products.add(productService.findById(id));
-        cart.setProducts(products);
-        cartService.save(cart);
+        cartService.addProduct(id);
         return "redirect:/cart";
     }
 
     @PostMapping("/del/{id}")
     public String delProduct(@PathVariable("id") int id) {
-        Cart cart = cartService.getCart();
-        List<Product> products = cart.getProducts();
-        products.remove(productService.findById(id));
-        cart.setProducts(products);
-        cartService.save(cart);
+        cartService.delProduct(id);
         return "redirect:/cart";
     }
 
