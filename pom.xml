@@ -14,7 +14,7 @@
     <name>shop</name>
     <description>Shop project for Spring Boot</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>15</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -98,7 +98,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <target>${java.version}}</target>
+                    <target>${java.version}</target>
                     <source>${java.version}</source>
                 </configuration>
             </plugin>
