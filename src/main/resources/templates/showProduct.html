@@ -65,9 +65,9 @@
 </p>
 
 <div>
-    <a th:href="@{/cart/new}">
-        <button type="button">Добавить в корзину</button>
-    </a>
+    <form th:method="add" th:action="@{/cart/{id}(id=${product.getId()})}">
+        <input type="submit" value="Добавить в корзину">
+    </form>
 </div>
 
 </body>
