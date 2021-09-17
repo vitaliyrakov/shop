@@ -42,7 +42,7 @@ public class UserController {
         return "editUser";
     }
 
-    @PostMapping()
+    @PostMapping("/new")
     public String saveUsers(@ModelAttribute("user") User user) {
         userService.registrationUser(user);
         return "redirect:/login";
