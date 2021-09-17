@@ -16,4 +16,6 @@ public interface UserService {
 
     User getCurrentUser();
 
+    void registrationUser(User user);
+
 }

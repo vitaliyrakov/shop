@@ -21,6 +21,9 @@
                 <a th:href="@{/login}">
                     <button type="button">Войти</button>
                 </a>
+                <a th:href="@{/users/new}">
+                    <button type="button2">Регистрация</button>
+                </a>
             </div>
 
             <div sec:authorize="isAuthenticated()">
