@@ -1,13 +1,16 @@
 package com.example.shop.model.service;
 
 import com.example.shop.model.entity.User;
+import com.example.shop.model.repository.RoleRepository;
 import com.example.shop.model.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -15,6 +18,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> findAll() {
@@ -48,6 +53,14 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.findOneByLogin(username)
                 .orElseThrow(NullPointerException::new);
+    }
+
+    @Override
+    public void registrationUser(User user) {
+        user.setRegDate(new Date());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(roleRepository.findByRole("ROLE_USER"));
+        save(user);
     }
 
 }

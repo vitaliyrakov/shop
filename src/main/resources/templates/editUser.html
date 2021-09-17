@@ -14,58 +14,32 @@
                 Здравствуйте, <span sec:authentication="name">Bob</span> !
             </div>
         </th>
-
-        <th>
-            <div sec:authorize="isAnonymous()">
-                <a th:href="@{/login}">
-                    <button type="button">Войти</button>
-                </a>
-            </div>
-
-            <div sec:authorize="isAuthenticated()">
-                <a th:href="@{/logout}">
-                    <button type="button">Выйти</button>
-                </a>
-            </div>
-        </th>
     </tr>
     <tr>
-        <th>
-            <a th:href="@{/cart}">
-                <button type="button">Корзина</button>
-            </a>
-        </th>
-        <th>
-            <a th:href="@{/products}">
-                <button type="button">Товары</button>
-            </a>
-        </th>
         <th sec:authorize="hasRole('ROLE_ADMIN')">
             <a th:href="@{/users}">
                 <button type="button">Пользователи</button>
             </a>
         </th>
-        <th>
-            <div sec:authorize="isAuthenticated()">
-                <a th:href="@{/orders}">
-                    <button type="button">Заказы</button>
-                </a>
-            </div>
-        </th>
     </tr>
     </thead>
 </table>
 
-<h2>Пользователь</h2>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <h2>Пользователь</h2>
+</div>
+<div sec:authorize="isAnonymous()">
+    <h2>Регистрация</h2>
+</div>
 
 <form method="post" th:action="@{/users}" th:object="${user}">
     <p>
-        <label for="id">Id:</label>
-        <input type="text" size="10" readonly id="id" th:field="*{id}"/><br>
-        <label for="name">Фамилия:</label>
-        <input type="text" size="40" id="name" th:field="*{firstName}"/><br>
-        <label for="lastName">Имя:</label>
-        <input type="text" size="40" id="lastName" th:field="*{lastName}"/><br>
+<!--        <label for="id">Id:</label>-->
+<!--        <input type="text" size="10" readonly id="id" th:field="*{id}"/><br>-->
+<!--        <label for="name">Фамилия:</label>-->
+<!--        <input type="text" size="40" id="name" th:field="*{firstName}"/><br>-->
+<!--        <label for="lastName">Имя:</label>-->
+<!--        <input type="text" size="40" id="lastName" th:field="*{lastName}"/><br>-->
         <label for="login">Логин:</label>
         <input type="text" size="40" id="login" th:field="*{login}"/><br>
         <label for="password">Пароль:</label>

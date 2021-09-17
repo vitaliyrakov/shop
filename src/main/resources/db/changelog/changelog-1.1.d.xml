@@ -8,7 +8,7 @@
         <loadData catalogName="cat"
                   commentLineStartsWith="//"
                   encoding="UTF-8"
-                  file="./../data/1_1/users.csv"
+                  file="db/data/1_1/users.csv"
                   quotchar="'"
                   relativeToChangelogFile="true"
                   schemaName=""
